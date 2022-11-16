@@ -7,6 +7,7 @@ username=$(cat /tmp/userlist | tr 'A-Z' 'a-z')
 groups=$(cat /tmp/grouplist | tr 'A-Z' 'a-z')
 echo Creating users
 echo ........
+sleep 5
 for user in $username
 do
         sudo useradd $user
@@ -15,7 +16,7 @@ done
 
 echo Creating Groups
 echo .........
-
+sleep 5
 for group in $groups
 do
 	sudo groupadd $group
@@ -24,19 +25,19 @@ done
 
 echo Assigning groups
 echo ...........
-
+sleep 5
 for user in $username
 do
-	if [$user == 'admin']
+	if [[$user == "admin"]]
 	then
 		sudo usermod -g admin $user
-	elif [$user == 'badactor']
+	elif [[$user == "badactor"]]
 	then
-		sudo usermod -g stayout $user
-	elif [$user == 'tech']
+		sudo usermod -g stayout $user]]
+	elif [[$user == "tech"]]
 	then
 		sudo usermod -g worker $user
-	elif [$user == 'george']
+	elif [[$user == "george"]]
 	then
 		sudo usermod -g worker $user
 	else 
@@ -44,3 +45,23 @@ do
 	fi
 done
 
+echo Creating Files
+echo ..........
+sleep 5
+
+touch /home/admin/secret.txt
+touch /home/goerge/tasks
+touch /home/badactor/endtheworld.sh
+touch /home/tech/everything.txt
+echo All the passwords > /home/admin/secret.txt
+echo Enter time sheet \n grab lunch \n deliver package \n clock out > /home/george/tasks
+echo "#!/bin/bash \n shutdown --poweroff" > /home/badactor/endtheworld.sh
+echo all information on the network > /home/tech/everything.txt
+echo ........
+sleep 5
+chmod 777 /home/admin/secret.txt
+chmod 662 /home/george/tasks
+chmod 722 /home/badactor/endtheworld.sh
+chmod 777 /home/tech/everything.txt
+
+echo computer built!
